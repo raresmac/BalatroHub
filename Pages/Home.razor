@@ -6,7 +6,6 @@
     <p class="subtitle">SELECT A RUN CATEGORY</p>
 
     <div class="landing-cards">
-        @* Card 1: Main Decks *@
         <div class="menu-card" @onclick='() => Nav.NavigateTo("decks")'>
             <div class="card-inner">
                 <div class="icon">🃏</div>
@@ -16,7 +15,6 @@
             </div>
         </div>
 
-        @* Card 2: Challenges *@
         <div class="menu-card polychrome" @onclick='() => Nav.NavigateTo("challenges")'>
             <div class="card-inner">
                 <div class="icon">🔥</div>
@@ -26,7 +24,6 @@
             </div>
         </div>
 
-        @* Card 3: Seeds *@
         <div class="menu-card" @onclick='() => Nav.NavigateTo("seeds")'>
             <div class="card-inner">
                 <div class="icon">🧪</div>
@@ -64,15 +61,16 @@
 
     .landing-cards {
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap; /* This handles the wrapping naturally */
+        justify-content: center; /* This centers them when they wrap */
         gap: 30px;
-        flex-wrap: wrap;
-        padding-bottom: 50px;
+        padding-bottom: 120px;
+        max-width: 1200px;
     }
 
     .menu-card {
-        width: 240px;
-        height: 350px;
+        width: 350px;
+        height: 550px;
         background: #111;
         border: 4px solid #fff;
         border-radius: 18px;
@@ -106,19 +104,19 @@
     }
 
     .icon {
-        font-size: 4.5rem;
+        font-size: 5rem;
         margin-bottom: 10px;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         margin: 0;
         font-weight: 900;
     }
 
     small {
         opacity: 0.7;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         line-height: 1.2;
     }
 </style>

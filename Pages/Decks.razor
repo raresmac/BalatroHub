@@ -26,7 +26,6 @@
         <div class="stakes-wrapper">
             @foreach (var stake in Stakes)
             {
-                @* Border color is now inherited from the stake-specific CSS class *@
                 <div class="stake-ornate-card @("stake-" + stake.ToLower())">
                     <div class="stake-card-header">
                         <h2>@stake.ToUpper() STAKE</h2>
@@ -43,143 +42,25 @@
     }
 </div>
 
-@code { 
+@code {
     private DeckInfo? selectedDeck;
     record DeckInfo(string Name, string Hex);
 
-    // 1. Create a mapping of "DeckName-StakeName" to "YouTubeID"
-    // You only need to add the ones you have videos for.
     private Dictionary<string, string> VideoMap = new() {
-        { "Red Deck-White", "AEO2KJs5QNY" },
-        { "Red Deck-Red", "XqkbdG-uOZs" },
-        { "Red Deck-Green", "H4k5yRYai8g" },
-        { "Red Deck-Black", "Neyi7vsNCwg" },
-        { "Red Deck-Blue", "oLNkz-2VbPk" },
-        { "Red Deck-Purple", "VvtUVhqtnno" },
-        { "Red Deck-Orange", "89uKr6F3XZY" },
-        { "Red Deck-Gold", "RBp82m7pkCY" },
-        { "Blue Deck-White", "baKYf14y-_0" },
-        { "Blue Deck-Red", "lVhkD4Xys-Q" },
-        { "Blue Deck-Green", "cYkZDnZu4f8" },
-        { "Blue Deck-Black", "bL9A7rXf6D8" },
-        { "Blue Deck-Blue", "QY5peA_7tao" },
-        { "Blue Deck-Purple", "CZtaAX7wwtA" },
-        { "Blue Deck-Orange", "zaaCxT8uVWE" },
-        { "Blue Deck-Gold", "nztgAEYLd8U" },
-        { "Yellow Deck-White", "YzLWOdbcW2A" },
-        { "Yellow Deck-Red", "YyhVMEPJqOc" },
-        { "Yellow Deck-Green", "_BzcBy0tFL8" },
-        { "Yellow Deck-Black", "axQp9Lgb8ps" },
-        { "Yellow Deck-Blue", "lngj6Y5n9LM" },
-        { "Yellow Deck-Purple", "KvEA19_jQEM" },
-        { "Yellow Deck-Orange", "xtPblN0b42k" },
-        { "Yellow Deck-Gold", "ZyRePtw6HGM" },
-        { "Green Deck-White", "-RPvRwUmzSs" },
-        { "Green Deck-Red", "LQuwI2XvCzY" },
-        { "Green Deck-Green", "Porp67XMtes" },
-        { "Green Deck-Black", "Vk0yKQcuDck" },
-        { "Green Deck-Blue", "fn67GhE1SCI" },
-        { "Green Deck-Purple", "bBAFv9Wi95I" },
-        { "Green Deck-Orange", "BWxPwW2d0Ok" },
-        { "Green Deck-Gold", "lmVws1dYYhc" },
-        { "Black Deck-White", "pfv67aT-3A8" },
-        { "Black Deck-Red", "KB8vYngzOME" },
-        { "Black Deck-Green", "4_uMsu_UaZY" },
-        { "Black Deck-Black", "rUQD8LHAjRM" },
-        { "Black Deck-Blue", "xpCtU8nH7UE" },
-        { "Black Deck-Purple", "W0aVPdQ16o0" },
-        { "Black Deck-Orange", "FIXtxdnYumo" },
-        { "Black Deck-Gold", "twolqojmK40" },
-        { "Magic Deck-White", "VIDEO_ID_1" },
-        { "Magic Deck-Red", "VIDEO_ID_2" },
-        { "Magic Deck-Green", "VIDEO_ID_2" },
-        { "Magic Deck-Black", "VIDEO_ID_2" },
-        { "Magic Deck-Blue", "VIDEO_ID_2" },
-        { "Magic Deck-Purple", "VIDEO_ID_2" },
-        { "Magic Deck-Orange", "VIDEO_ID_2" },
-        { "Magic Deck-Gold", "VIDEO_ID_2" },
-        { "Nebula Deck-White", "VIDEO_ID_1" },
-        { "Nebula Deck-Red", "VIDEO_ID_2" },
-        { "Nebula Deck-Green", "VIDEO_ID_2" },
-        { "Nebula Deck-Black", "VIDEO_ID_2" },
-        { "Nebula Deck-Blue", "VIDEO_ID_2" },
-        { "Nebula Deck-Purple", "VIDEO_ID_2" },
-        { "Nebula Deck-Orange", "VIDEO_ID_2" },
-        { "Nebula Deck-Gold", "VIDEO_ID_2" },
-        { "Ghost Deck-White", "VIDEO_ID_1" },
-        { "Ghost Deck-Red", "VIDEO_ID_2" },
-        { "Ghost Deck-Green", "VIDEO_ID_2" },
-        { "Ghost Deck-Black", "VIDEO_ID_2" },
-        { "Ghost Deck-Blue", "VIDEO_ID_2" },
-        { "Ghost Deck-Purple", "VIDEO_ID_2" },
-        { "Ghost Deck-Orange", "VIDEO_ID_2" },
-        { "Ghost Deck-Gold", "VIDEO_ID_2" },
-        { "Abandoned Deck-White", "VIDEO_ID_1" },
-        { "Abandoned Deck-Red", "VIDEO_ID_2" },
-        { "Abandoned Deck-Green", "VIDEO_ID_2" },
-        { "Abandoned Deck-Black", "VIDEO_ID_2" },
-        { "Abandoned Deck-Blue", "VIDEO_ID_2" },
-        { "Abandoned Deck-Purple", "VIDEO_ID_2" },
-        { "Abandoned Deck-Orange", "VIDEO_ID_2" },
-        { "Abandoned Deck-Gold", "VIDEO_ID_2" },
-        { "Checkered Deck-White", "VIDEO_ID_1" },
-        { "Checkered Deck-Red", "VIDEO_ID_2" },
-        { "Checkered Deck-Green", "VIDEO_ID_2" },
-        { "Checkered Deck-Black", "VIDEO_ID_2" },
-        { "Checkered Deck-Blue", "VIDEO_ID_2" },
-        { "Checkered Deck-Purple", "VIDEO_ID_2" },
-        { "Checkered Deck-Orange", "VIDEO_ID_2" },
-        { "Checkered Deck-Gold", "VIDEO_ID_2" },
-        { "Zodiac Deck-White", "VIDEO_ID_1" },
-        { "Zodiac Deck-Red", "VIDEO_ID_2" },
-        { "Zodiac Deck-Green", "VIDEO_ID_2" },
-        { "Zodiac Deck-Black", "VIDEO_ID_2" },
-        { "Zodiac Deck-Blue", "VIDEO_ID_2" },
-        { "Zodiac Deck-Purple", "VIDEO_ID_2" },
-        { "Zodiac Deck-Orange", "VIDEO_ID_2" },
-        { "Zodiac Deck-Gold", "VIDEO_ID_2" },
-        { "Painted Deck-White", "VIDEO_ID_1" },
-        { "Painted Deck-Red", "VIDEO_ID_2" },
-        { "Painted Deck-Green", "VIDEO_ID_2" },
-        { "Painted Deck-Black", "VIDEO_ID_2" },
-        { "Painted Deck-Blue", "VIDEO_ID_2" },
-        { "Painted Deck-Purple", "VIDEO_ID_2" },
-        { "Painted Deck-Orange", "VIDEO_ID_2" },
-        { "Painted Deck-Gold", "VIDEO_ID_2" },
-        { "Anaglyph Deck-White", "VIDEO_ID_1" },
-        { "Anaglyph Deck-Red", "VIDEO_ID_2" },
-        { "Anaglyph Deck-Green", "VIDEO_ID_2" },
-        { "Anaglyph Deck-Black", "VIDEO_ID_2" },
-        { "Anaglyph Deck-Blue", "VIDEO_ID_2" },
-        { "Anaglyph Deck-Purple", "VIDEO_ID_2" },
-        { "Anaglyph Deck-Orange", "VIDEO_ID_2" },
-        { "Anaglyph Deck-Gold", "VIDEO_ID_2" },
-        { "Plasma Deck-White", "VIDEO_ID_1" },
-        { "Plasma Deck-Red", "VIDEO_ID_2" },
-        { "Plasma Deck-Green", "VIDEO_ID_2" },
-        { "Plasma Deck-Black", "VIDEO_ID_2" },
-        { "Plasma Deck-Blue", "VIDEO_ID_2" },
-        { "Plasma Deck-Purple", "VIDEO_ID_2" },
-        { "Plasma Deck-Orange", "VIDEO_ID_2" },
-        { "Plasma Deck-Gold", "VIDEO_ID_2" },
-        { "Erratic Deck-White", "VIDEO_ID_1" },
-        { "Erratic Deck-Red", "VIDEO_ID_2" },
-        { "Erratic Deck-Green", "VIDEO_ID_2" },
-        { "Erratic Deck-Black", "VIDEO_ID_2" },
-        { "Erratic Deck-Blue", "VIDEO_ID_2" },
-        { "Erratic Deck-Purple", "VIDEO_ID_2" },
-        { "Erratic Deck-Orange", "VIDEO_ID_2" },
-        { "Erratic Deck-Gold", "VIDEO_ID_2" }
+        { "Red Deck-White", "AEO2KJs5QNY" }, { "Red Deck-Red", "XqkbdG-uOZs" }, { "Red Deck-Green", "H4k5yRYai8g" }, { "Red Deck-Black", "Neyi7vsNCwg" }, { "Red Deck-Blue", "oLNkz-2VbPk" }, { "Red Deck-Purple", "VvtUVhqtnno" }, { "Red Deck-Orange", "89uKr6F3XZY" }, { "Red Deck-Gold", "RBp82m7pkCY" },
+        { "Blue Deck-White", "baKYf14y-_0" }, { "Blue Deck-Red", "lVhkD4Xys-Q" }, { "Blue Deck-Green", "cYkZDnZu4f8" }, { "Blue Deck-Black", "bL9A7rXf6D8" }, { "Blue Deck-Blue", "QY5peA_7tao" }, { "Blue Deck-Purple", "CZtaAX7wwtA" }, { "Blue Deck-Orange", "zaaCxT8uVWE" }, { "Blue Deck-Gold", "nztgAEYLd8U" },
+        { "Yellow Deck-White", "YzLWOdbcW2A" }, { "Yellow Deck-Red", "YyhVMEPJqOc" }, { "Yellow Deck-Green", "_BzcBy0tFL8" }, { "Yellow Deck-Black", "axQp9Lgb8ps" }, { "Yellow Deck-Blue", "lngj6Y5n9LM" }, { "Yellow Deck-Purple", "KvEA19_jQEM" }, { "Yellow Deck-Orange", "xtPblN0b42k" }, { "Yellow Deck-Gold", "ZyRePtw6HGM" },
+        { "Green Deck-White", "-RPvRwUmzSs" }, { "Green Deck-Red", "LQuwI2XvCzY" }, { "Green Deck-Green", "Porp67XMtes" }, { "Green Deck-Black", "Vk0yKQcuDck" }, { "Green Deck-Blue", "fn67GhE1SCI" }, { "Green Deck-Purple", "bBAFv9Wi95I" }, { "Green Deck-Orange", "BWxPwW2d0Ok" }, { "Green Deck-Gold", "lmVws1dYYhc" },
+        { "Black Deck-White", "pfv67aT-3A8" }, { "Black Deck-Red", "KB8vYngzOME" }, { "Black Deck-Green", "4_uMsu_UaZY" }, { "Black Deck-Black", "rUQD8LHAjRM" }, { "Black Deck-Blue", "xpCtU8nH7UE" }, { "Black Deck-Purple", "W0aVPdQ16o0" }, { "Black Deck-Orange", "FIXtxdnYumo" }, { "Black Deck-Gold", "twolqojmK40" }
     };
 
-    // 2. Helper method to get the ID or a fallback
-    private string GetVideoId(string deckName, string stakeName) {
+    private string GetVideoId(string deckName, string stakeName)
+    {
         string key = $"{deckName}-{stakeName}";
-        return VideoMap.ContainsKey(key) ? VideoMap[key] : "dQw4w9WgXcQ"; // Default placeholder
+        return VideoMap.ContainsKey(key) ? VideoMap[key] : "dQw4w9WgXcQ";
     }
 
     List<string> Stakes = new() { "White", "Red", "Green", "Black", "Blue", "Purple", "Orange", "Gold" };
-
     List<DeckInfo> MainDecks = new() {
         new("Red Deck", "#ff4d4d"), new("Blue Deck", "#4d94ff"), new("Yellow Deck", "#ffcc00"),
         new("Green Deck", "#4dff4d"), new("Black Deck", "#333333"), new("Magic Deck", "#a349a4"),
@@ -204,10 +85,12 @@
 
     .deck-selection-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        /* auto-fit will fill the row with as many cards as fit, but at least 200px each */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
         max-width: 1200px;
         margin: 40px auto;
+        padding: 0 20px;
     }
 
     .deck-select-card {
@@ -265,7 +148,8 @@
 
     .stakes-wrapper {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        /* minmax(320px) ensures cards stay large but wrap to 1 column on phones */
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 30px;
         max-width: 1200px;
         margin: 0 auto;
@@ -274,43 +158,17 @@
 
     .stake-ornate-card {
         background: rgba(10, 10, 10, 0.95);
-        border: 3px solid; /* Color provided by stake-xxx class */
+        border: 3px solid;
         border-radius: 15px;
         padding: 20px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         transition: transform 0.3s;
     }
 
-        .stake-ornate-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px currentColor;
-        }
-
     .stake-card-header h2 {
         font-size: 1.1rem;
         text-align: center;
         margin-bottom: 15px;
-        letter-spacing: 1px;
         color: white;
-    }
-
-    .stake-card-footer {
-        text-align: center;
-        margin-top: 15px;
-        font-size: 0.7rem;
-        opacity: 0.6;
-        color: white;
-    }
-
-    @@media (max-width: 1100px) {
-        .stakes-wrapper {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @@media (max-width: 750px) {
-        .stakes-wrapper {
-            grid-template-columns: 1fr;
-        }
     }
 </style>
