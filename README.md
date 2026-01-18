@@ -1,4 +1,4 @@
-![Dashboard](./screenshots/balatrohub.png)
+![Dashboard](./screenshots/balatrohub.webp)
 
 # 🃏 Balatro Hub - Video Strategy Portal
 
@@ -8,7 +8,7 @@
 ![Tech Stack](https://img.shields.io/badge/Tech-Blazor_Wasm-blue)
 ![Status](https://img.shields.io/badge/Status-Legendary-gold)
 
-![Dashboard](./screenshots/balatrohub_menu.png)
+![Dashboard](./screenshots/balatrohub_menu.webp)
 
 ## ✨ Features
 
