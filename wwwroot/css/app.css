@@ -1,0 +1,133 @@
+:root {
+    --balatro-red: #ff4d4d;
+    --balatro-blue: #4d94ff;
+    --balatro-gold: #ffcc00;
+    --balatro-dark: #0b0b0b;
+}
+
+body {
+    background-color: var(--balatro-dark);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Hypnotic Swirl Background */
+.balatro-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(125deg, #050505, #1a0a2e, #0a1a2e, #050505);
+    background-size: 400% 400%;
+    animation: swirl 15s ease infinite;
+}
+
+@keyframes swirl {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* CRT Scanline Effect */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Stake Colors */
+.stake-white {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.stake-red {
+    color: #ff4d4d;
+    border-color: #ff4d4d;
+}
+
+.stake-green {
+    color: #4dff4d;
+    border-color: #4dff4d;
+}
+
+.stake-black {
+    color: #666666;
+    border-color: #666666;
+}
+
+.stake-blue {
+    color: #4d94ff;
+    border-color: #4d94ff;
+}
+
+.stake-purple {
+    color: #a349a4;
+    border-color: #a349a4;
+}
+
+.stake-orange {
+    color: #ff9d4d;
+    border-color: #ff9d4d;
+}
+
+.stake-gold {
+    color: var(--balatro-gold);
+    border-color: var(--balatro-gold);
+}
+
+/* Animations */
+.page-fade-in {
+    animation: slideIn 0.4s ease-out forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.polychrome {
+    background: linear-gradient(120deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+    background-size: 300% 300%;
+    animation: polychrome-move 4s ease infinite;
+    border: 2px solid gold !important;
+}
+
+@keyframes polychrome-move {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

@@ -1,0 +1,135 @@
+﻿@page "/challenges"
+
+<div class="page-fade-in challenge-page-container">
+    <h1 class="page-title">THE 20 CHALLENGES</h1>
+    <p class="page-subtitle">Specialized Rulesets & Completion Runs</p>
+
+    <div class="challenge-grid">
+        @foreach (var ch in AllChallenges)
+        {
+            <div class="challenge-ornate-card @(ch.Id == 20 ? "polychrome" : "")">
+                <div class="ch-number-tag">#@ch.Id</div>
+                <div class="ch-card-content">
+                    <h3>@ch.Name.ToUpper()</h3>
+                    <div class="video-box">
+                        <YoutubePlayer VideoId="@ch.Vid" />
+                    </div>
+                </div>
+                <div class="ch-footer">CHALLENGE COMPLETE</div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    record ChallengeItem(int Id, string Name, string Vid);
+    List<ChallengeItem> AllChallenges = new() {
+        new(1, "The Omelette", "Fvu4iMe3C44"),
+        new(2, "15 Minute City", "ERqflTMs8qo"),
+        new(3, "Rich get Richer", "14j1bnwjXB4"),
+        new(4, "On a Knife's Edge", "oUBxAG0aimw"),
+        new(5, "X-ray Vision", "i4zPQitVoDU"),
+        new(6, "Mad World", "kX8JiojP1Lc"),
+        new(7, "Luxury Tax", "SW9IAvMD83k"),
+        new(8, "Non-Perishable", "FLdov8OSzOk"),
+        new(9, "Medusa", "DiqNIRabSYo"),
+        new(10, "Double or Nothing", "PVZqcQZeLrQ"),
+        new(11, "Typecast", "ifQRIiAbPas"),
+        new(12, "Inflation", "QQnI2Faw0WY"),
+        new(13, "Bram Poker", "vFgXCdh7moM"),
+        new(14, "Fragile", "ID_HERE"),
+        new(15, "Monolith", "ID_HERE"),
+        new(16, "Blast Off", "ID_HERE"),
+        new(17, "Five-Card Draw", "ID_HERE"),
+        new(18, "Golden Needle", "ID_HERE"),
+        new(19, "Cruelty", "ID_HERE"),
+        new(20, "Jokerless", "ID_HERE")
+    };
+}
+
+<style>
+    .challenge-page-container {
+        padding-bottom: 120px;
+    }
+
+    .page-title {
+        text-align: center;
+        color: var(--balatro-gold);
+        text-shadow: 4px 4px black;
+        font-size: 3.5rem;
+        margin-top: 40px;
+    }
+
+    .page-subtitle {
+        text-align: center;
+        color: white;
+        opacity: 0.7;
+        margin-bottom: 50px;
+    }
+
+    .challenge-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .challenge-ornate-card {
+        background: rgba(15, 15, 15, 0.9);
+        border: 2px solid var(--balatro-red);
+        border-radius: 12px;
+        position: relative;
+        transition: 0.3s;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+        .challenge-ornate-card:hover {
+            transform: scale(1.03);
+            border-color: white;
+        }
+
+    .ch-number-tag {
+        background: var(--balatro-red);
+        color: white;
+        display: inline-block;
+        padding: 4px 12px;
+        font-weight: bold;
+        border-bottom-right-radius: 10px;
+    }
+
+    .ch-card-content {
+        padding: 20px;
+        text-align: center;
+    }
+
+        .ch-card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--balatro-gold);
+            text-shadow: 2px 2px black;
+        }
+
+    .ch-footer {
+        background: rgba(255,255,255,0.05);
+        text-align: center;
+        padding: 10px;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        color: var(--balatro-red);
+        font-weight: bold;
+    }
+
+    @@media (max-width: 1100px) {
+        .challenge-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 750px) {
+        .challenge-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

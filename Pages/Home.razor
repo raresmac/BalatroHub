@@ -1,0 +1,124 @@
+﻿@page "/"
+@inject NavigationManager Nav
+
+<div class="landing-page page-fade-in">
+    <h1 class="balatro-logo">BALATRO HUB</h1>
+    <p class="subtitle">SELECT A RUN CATEGORY</p>
+
+    <div class="landing-cards">
+        @* Card 1: Main Decks *@
+        <div class="menu-card" @onclick='() => Nav.NavigateTo("decks")'>
+            <div class="card-inner">
+                <div class="icon">🃏</div>
+                <h2>DECKS</h2>
+                <div class="divider"></div>
+                <small>Stake Climbs (White to Gold)</small>
+            </div>
+        </div>
+
+        @* Card 2: Challenges *@
+        <div class="menu-card polychrome" @onclick='() => Nav.NavigateTo("challenges")'>
+            <div class="card-inner">
+                <div class="icon">🔥</div>
+                <h2>CHALLENGES</h2>
+                <div class="divider"></div>
+                <small>20 Unique Scenarios</small>
+            </div>
+        </div>
+
+        @* Card 3: Seeds *@
+        <div class="menu-card" @onclick='() => Nav.NavigateTo("seeds")'>
+            <div class="card-inner">
+                <div class="icon">🧪</div>
+                <h2>SEEDS</h2>
+                <div class="divider"></div>
+                <small>Special Showcases</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .landing-page {
+        text-align: center;
+        padding-top: 10vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .balatro-logo {
+        font-size: clamp(3rem, 10vw, 5.5rem);
+        color: var(--balatro-red);
+        text-shadow: 6px 6px 0px #000;
+        letter-spacing: -2px;
+        margin-bottom: 0;
+    }
+
+    .subtitle {
+        color: var(--balatro-gold);
+        letter-spacing: 4px;
+        font-weight: bold;
+        margin-bottom: 50px;
+    }
+
+    .landing-cards {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        padding-bottom: 50px;
+    }
+
+    .menu-card {
+        width: 240px;
+        height: 350px;
+        background: #111;
+        border: 4px solid #fff;
+        border-radius: 18px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .divider {
+        width: 40px;
+        height: 3px;
+        background: var(--balatro-gold);
+        margin: 15px 0;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-25px) rotate(4deg);
+        border-color: var(--balatro-gold);
+        box-shadow: 0 0 40px rgba(255, 204, 0, 0.4);
+    }
+
+    .icon {
+        font-size: 4.5rem;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin: 0;
+        font-weight: 900;
+    }
+
+    small {
+        opacity: 0.7;
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+</style>
