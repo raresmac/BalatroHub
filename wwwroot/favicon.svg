@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card Base -->
+  <rect x="8" y="4" width="48" height="56" rx="6" fill="white" stroke="#222" stroke-width="2"/>
+  
+  <!-- J corner markers -->
+  <text x="12" y="16" fill="#ff4d4d" font-family="Courier New" font-weight="bold" font-size="10">J</text>
+  <text x="46" y="54" fill="#ff4d4d" font-family="Courier New" font-weight="bold" font-size="10" transform="rotate(180 48 50)">J</text>
+  
+  <!-- Joker Hat (Balatro Style) -->
+  <path d="M20 32C20 25 26 22 32 22C38 22 44 25 44 32" stroke="#4d94ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 34L32 44L42 34" fill="#ff4d4d"/>
+  
+  <!-- Jester Bells -->
+  <circle cx="20" cy="32" r="3" fill="#ffcc00"/>
+  <circle cx="44" cy="32" r="3" fill="#ffcc00"/>
+  <circle cx="32" cy="46" r="3" fill="#ffcc00"/>
+  
+  <!-- Subtle CRT Scanline effect on the icon -->
+  <rect x="8" y="4" width="48" height="56" rx="6" fill="url(#lines)" fill-opacity="0.1"/>
+  <defs>
+    <pattern id="lines" width="64" height="4" patternUnits="userSpaceOnUse">
+      <rect width="64" height="2" fill="black"/>
+    </pattern>
+  </defs>
+</svg>
