@@ -2,55 +2,57 @@ name: Deploy Blazor WASM to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
-  workflow_dispatch:
+    branches: [ main ]
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+          
+      - name: Build Tailwind CSS
+        run: |
+          curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64
+          chmod +x tailwindcss-linux-x64
+          ./tailwindcss-linux-x64 -i wwwroot/css/app.css -o wwwroot/css/site.css --minify
         
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build -c Release --no-restore
-      
-    - name: Publish
-      run: dotnet publish -c Release -o release --nologo
+      - name: Publish
+        run: dotnet publish -c Release -o release --nologo
+  
+      - name: Fix Base Href
+        run: sed -i 's/<base href="\/" \/>/<base href="\/BalatroHub\/" \/>/g' release/wwwroot/index.html
+        
+      - name: Copy index to 404
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
+          
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
 
-    - name: Fix Base Href
-      run: sed -i 's/<base href="\/" \/>/<base href="\/BalatroHub\/" \/>/g' release/wwwroot/index.html
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
       
-    - name: Generate 404.html for SPA routing
-      run: cp release/wwwroot/index.html release/wwwroot/404.html
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'release/wwwroot'
         
-    - name: Add .nojekyll file
-      run: touch release/wwwroot/.nojekyll
-        
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: 'release/wwwroot'
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
